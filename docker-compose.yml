@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  web:
+    build:
+      context: ./web
+    tty: true
+      #dockerfile: ruby/unicorn:latest
+   # ports:
+   #   - '80:80'
+  app:
+    build:
+      context: ./app
+      #dockerfile: web:latest
+    tty: true
+    #command: bundle exec unicorn -p 3000 -c /app/config/unicorn.rb
+   # ports:
+   #   - '3000:3000'
+    
