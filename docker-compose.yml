@@ -1,42 +1,83 @@
 version: '3.3'
 services:
+#  db:
+#    image: postgres
   web:
     build:
       context: ./web
     tty: true
-      #dockerfile: ruby/unicorn:latest
-   # ports:
-   #   - '80:80'
+    ports:
+      - '3000:80'
   app:
     build:
       context: ./app
-      #dockerfile: web:latest
-    #command: rails s -p 3000 -b '0.0.0.0'
+      dockerfile: Dockerfile.bak
+    volumes:
+      - .:/app
+    #command: bundle exec rails s -p 3000 -b '0.0.0.0'
     tty: true
-    #command: bundle exec unicorn -p 3000 -c /app/config/unicorn.rb
-   # ports:
-   #   - '3000:3000'
-  redis-master:
-    build:
-      context: ./redis-master
-    restart: always
-    tty: true
-    privileged: true
-    volumes: 
-      - ./data/redis:/data
-  redis-slave:
-    build:
-      context: ./redis-slave
-    restart: always
-    tty: true
-    privileged: true
-    volumes: 
-      - ./data/redis:/data
-  redis-sentinel-1:
-    build: ./redis-sentinel-1
-    restart: always
-    tty: true
-    privileged: true
-    volumes: 
-      - ./data/redis:/data
+    ports:
+      - '8000:8080'
+#    depends_on:
+#      - db
+#  redis-master:
+#    build:
+#      context: ./redis-master
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+#  redis-slave:
+#    build:
+#      context: ./redis-slave
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+#  redis-master-2:
+#    build:
+#      context: ./redis-master-2
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+#  redis-slave-2:
+#    build:
+#      context: ./redis-slave-2
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+#  redis-master-3:
+#    build:
+#      context: ./redis-master-3
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+#  redis-slave-3:
+#    build:
+#      context: ./redis-slave-3
+#    restart: always
+#    tty: true
+#    privileged: true
+#    volumes: 
+#      - ./data/redis:/data
+
+
+
+
+  # sentinel設定
+  #redis-sentinel-1:
+  #  build: ./redis-sentinel-1
+  #  restart: always
+  #  tty: true
+  #  privileged: true
+  #  volumes: 
+  #    - ./data/redis:/data
   
